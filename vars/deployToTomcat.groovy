@@ -7,8 +7,13 @@ def call(credentialId, userName, serverIp, warfileName){
         sh "ssh ${userName}@${ip} /opt/tomcat9/bin/startup.sh"
       }
   }
-
 }
+
+// Example usage of the call method
+def serverIps = ['172.31.19.102']
+def warFileName = 'doctor-online.war'
+call("tomcat-dev", "ec2-user", serverIps, warFileName)
+   
 
 
 
