@@ -1,15 +1,17 @@
-def call(credentialId, userName, serverIp, warfileName,   ){
+def call(credentialId, userName, serverIp, warfileName){
    sshagent([credentialId]) {
-   for (serverIp in serverIps){
-     // COPY WAR FILE TO TOMCAT
-   sh "scp -o StrictHostKeyChecking=no target/${warfileName} ${userName}@${serverIp}:/opt/tomcat9/webapps"
-   // Stop tomcat
-   sh "ssh ${userName}@${serverIp} /opt/tomcat9/bin/shutdown.sh"
-   // start tomcat
-   sh "ssh ${userName}@${serverIp} /opt/tomcat9/bin/startup.sh"
- }
+   for (ip in serverIps) {
+    sshagent([credentialId]) {
+        sh "scp -o StrictHostKeyChecking=no target/${warfileName} ${userName}@${ip}:/opt/tomcat9/webapps"
+        sh "ssh ${userName}@${ip} /opt/tomcat9/bin/shutdown.sh"
+        sh "ssh ${userName}@${ip} /opt/tomcat9/bin/startup.sh"
+      }
+  }
 
 }
+
+
+
 
 
 
