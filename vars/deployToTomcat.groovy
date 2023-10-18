@@ -12,4 +12,4 @@ def call(credentialId, userName, serverIp, warfileName,   ){
 }
 
 
-deployToTomcat("tomcat-dev", "ec2-user", "[172.31.13.20]", "doctor-online.war")
+
